@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JianpuReader
+namespace JianpuReader.NoteConversion
 {
     internal static class Util
     {
@@ -12,7 +12,7 @@ namespace JianpuReader
         {
             string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
             int noteIndex = keyNumber % 12;
-            int octave = (keyNumber / 12) - 1;
+            int octave = keyNumber / 12 - 1;
             return noteNames[noteIndex] + octave.ToString();
         }
 

@@ -2,20 +2,26 @@
 using System.Linq;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
-using JianpuReader;
+using JianpuReader.Midi;
 
-MidiDeviceManager midiDeviceManager = new MidiDeviceManager();
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        MidiDeviceManager midiDeviceManager = new MidiDeviceManager();
 
-midiDeviceManager.createInputDevice();
+        midiDeviceManager.createInputDevice();
 
-MidiEventHandler midiEventHandler = new MidiEventHandler();
+        MidiEventHandler midiEventHandler = new MidiEventHandler();
 
-midiDeviceManager.InputDevice.EventReceived += midiEventHandler.OnEventReceived;
-midiDeviceManager.InputDevice.StartEventsListening();
+        midiDeviceManager.InputDevice.EventReceived += midiEventHandler.OnEventReceived;
+        midiDeviceManager.InputDevice.StartEventsListening();
 
-// Keep the program running until the user presses a key
-Console.WriteLine("Press any key to exit");
-Console.ReadKey();
+        // Keep the program running until the user presses a key
+        Console.WriteLine("Press any key to exit");
+        Console.ReadKey();
 
-// Stop listening for events
-midiDeviceManager.InputDevice.StopEventsListening();
+        // Stop listening for events
+        midiDeviceManager.InputDevice.StopEventsListening();
+    }
+}

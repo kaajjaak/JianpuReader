@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JianpuReader
+namespace JianpuReader.Midi
 {
     internal class MidiEventHandler
     {
@@ -20,7 +20,7 @@ namespace JianpuReader
                 NoteOnEvent noteOnEvent = (NoteOnEvent)midiEvent;
                 if (noteOnEvent.Velocity > 0)
                 {
-                    this.NoteOn(midiDevice, noteOnEvent);
+                    NoteOn(midiDevice, noteOnEvent);
                 }
                 else
                 {
