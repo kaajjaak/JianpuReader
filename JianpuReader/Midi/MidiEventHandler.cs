@@ -1,4 +1,5 @@
-﻿using Melanchall.DryWetMidi.Core;
+﻿using JianpuReader.NoteConversion;
+using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace JianpuReader.Midi
 
         private void NoteOn(MidiDevice midiDevice, NoteOnEvent midiEvent)
         {
-            Console.WriteLine(Util.ConvertToRelativeNoteNumber(midiEvent.NoteNumber));
+            Console.WriteLine(Util.ConvertToRelativeNoteNumber(midiEvent.NoteNumber, true));
         }
     }
 }

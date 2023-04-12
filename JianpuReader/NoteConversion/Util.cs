@@ -16,7 +16,7 @@ namespace JianpuReader.NoteConversion
             return noteNames[noteIndex] + octave.ToString();
         }
 
-        public static string ConvertToRelativeNoteNumber(int keyNumber)
+        public static string ConvertToRelativeNoteNumber(int keyNumber, bool MinusInFront = false)
         {
             int middleC = 60; // middle C is note number 60
             int noteValue = keyNumber - middleC;
@@ -73,7 +73,10 @@ namespace JianpuReader.NoteConversion
             }
             else if (octave < 0)
             {
-                relativeNote += new string('-', -octave);
+                if (MinusInFront)
+                    relativeNote = new string('-', -octave) + relativeNote;
+                else
+                    relativeNote += new string('-', -octave);
             }
             return relativeNote;
         }
