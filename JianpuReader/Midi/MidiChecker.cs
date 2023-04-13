@@ -35,14 +35,20 @@ namespace JianpuReader.Midi
                     {
                         measure.IsCompleted = true;
                     }
-                } else
+                }
+                else
                 {
                     measure.IsCompleted = true;
                 }
             }
-            Console.Clear();
+
+            // Move the cursor position to the beginning of the console
+            Console.SetCursorPosition(0, 0);
+
+            // Write the updated song representation to the console
             Console.WriteLine(_song.ToString());
         }
+
     }
 
 }
