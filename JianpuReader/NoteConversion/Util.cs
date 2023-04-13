@@ -85,6 +85,9 @@ namespace JianpuReader.NoteConversion
             int threshold = 60; // Middle C
             return noteNumber >= threshold;
         }
+
+        
+
     }
 
 

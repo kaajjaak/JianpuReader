@@ -14,8 +14,10 @@ namespace JianpuReader.Midi
     internal class MidiFileManager
     {
         private MidiFile _midiFile;
+        private Song _song;
 
         public MidiFile MidiFile { get => _midiFile; set => _midiFile = value; }
+        public Song Song { get => _song; set => _song = value; }
 
         public void ReadFile()
         {
@@ -23,14 +25,16 @@ namespace JianpuReader.Midi
             double measureLength = calculateMeasureLength();
             List<(Measure left, Measure right)> measures = SeparateNotesIntoMeasures(notes, measureLength);
 
-            foreach ((Measure left, Measure right) measure in measures)
-            {
-                Console.WriteLine("Measure:");
-                Console.WriteLine(measure.right.ToString());
-                Console.WriteLine(measure.left.ToString());
-                Console.WriteLine();
-            }
+            List<Measure> rightHandMeasures = new List<Measure>();
+            List<Measure> leftHandMeasures = new List<Measure>();
+
+            rightHandMeasures = measures.Select(x => x.right).ToList();
+            leftHandMeasures = measures.Select(x => x.left).ToList();
+
+            _song = new Song(rightHandMeasures, leftHandMeasures);
         }
+
+
 
         public double calculateMeasureLength() {
             var tempoMap = _midiFile.GetTempoMap();

@@ -8,6 +8,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        ConsoleManager.MaximizeConsoleWindow();
         /* MidiDeviceManager midiDeviceManager = new MidiDeviceManager();
 
          midiDeviceManager.createInputDevice();
@@ -35,6 +36,8 @@ internal class Program
 
         midiFileManager.MidiFile = MidiFile.Read(filePath);
         midiFileManager.ReadFile();
+
+        Console.WriteLine(midiFileManager.Song.ToString());
 
     }
 }

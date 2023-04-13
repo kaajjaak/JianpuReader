@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace JianpuReader.MusicElements
 {
-    internal class Measure
+    public class Measure
     {
-        private List<HandedNote> handedNotes;
+        private List<HandedNote> _handedNotes;
 
         
 
@@ -18,7 +18,7 @@ namespace JianpuReader.MusicElements
             HandedNotes = new List<HandedNote>();
         }
 
-        public List<HandedNote> HandedNotes { get => handedNotes; set => handedNotes = value; }
+        public List<HandedNote> HandedNotes { get => _handedNotes; set => _handedNotes = value; }
 
         public void AddHandedNote(HandedNote handedNote)
         {
@@ -36,7 +36,7 @@ namespace JianpuReader.MusicElements
 
             double totalWidth = 30;
 
-            if (handedNotes.Count == 0)
+            if (_handedNotes.Count == 0)
             {
                 sb.Append(' ', (int)totalWidth);
                 sb.Append("|");
@@ -59,8 +59,8 @@ namespace JianpuReader.MusicElements
             int totalPaddingLength = (int)(totalWidth - totalNoteStringsLength);
 
             // Calculate padding width for each note
-            int paddingWidth = totalPaddingLength / handedNotes.Count;
-            int extraPadding = totalPaddingLength % handedNotes.Count;
+            int paddingWidth = totalPaddingLength / _handedNotes.Count;
+            int extraPadding = totalPaddingLength % _handedNotes.Count;
 
             // Append note strings and padding
             for (int i = 0; i < noteStrings.Count; i++)
