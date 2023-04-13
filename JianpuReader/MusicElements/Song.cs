@@ -34,7 +34,10 @@ namespace JianpuReader.MusicElements
             // Save right hand measures in a single line
             measuresOutput.AppendLine("Right Hand Measures:");
             if (_shownRightMeasures.First().IsCompleted && _shownRightMeasures[1].IsCompleted)
+            {
                 _shownRightMeasures.RemoveAt(0);
+                _shownLeftMeasures.RemoveAt(0);
+            }
             foreach (Measure rightHandMeasure in _shownRightMeasures)
             {
                 measuresOutput.Append(rightHandMeasure);
@@ -43,7 +46,7 @@ namespace JianpuReader.MusicElements
 
             // Save left hand measures in a single line
             measuresOutput.AppendLine("Left Hand Measures:");
-            foreach (Measure leftHandMeasure in leftMeasures)
+            foreach (Measure leftHandMeasure in _shownLeftMeasures)
             {
                 measuresOutput.Append(leftHandMeasure);
             }
@@ -77,8 +80,8 @@ namespace JianpuReader.MusicElements
             }
             measuresOutput.AppendLine();
             ConsoleManager.SetConsoleWidth(measuresOutput.ToString().Length + 10);
-            var (totalScore, totalNotes) = showRightHandScore();
-            measuresOutput.AppendLine($"Right Hand Score: {totalScore}/{totalNotes}");
+            var (totalScoreRight, totalNotesRight) = showRightHandScore();
+            measuresOutput.AppendLine($"Right Hand Score: {totalScoreRight}/{totalNotesRight}");
             measuresOutput.AppendLine();
             // Output the result
             return measuresOutput.ToString();       
@@ -88,6 +91,13 @@ namespace JianpuReader.MusicElements
         {
             int totalScore = rightMeasures.Select(x => x.HandedNotes.Count(y => y.isCorrect)).Sum();
             int totalNotes = rightMeasures.Select(x => x.HandedNotes.Count(y => y.isCompleted)).Sum();
+            return new Tuple<int, int>(totalScore, totalNotes);
+        }
+        
+        public Tuple <int, int> showLeftHandScore()
+        {
+            int totalScore = leftMeasures.Select(x => x.HandedNotes.Count(y => y.isCorrect)).Sum();
+            int totalNotes = leftMeasures.Select(x => x.HandedNotes.Count(y => y.isCompleted)).Sum();
             return new Tuple<int, int>(totalScore, totalNotes);
         }
     }
