@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JianpuReader.MusicElements
 {
-    internal class Song
+    public class Song
     {
         private List<Measure> rightMeasures = new List<Measure>();
         private List<Measure> leftMeasures = new List<Measure>();

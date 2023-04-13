@@ -17,8 +17,7 @@ namespace JianpuReader.Midi
 
             if (inputDevices.Count() == 0)
             {
-                Console.WriteLine("No input devices found");
-                return;
+                throw new Exception("No input devices found");
             }
 
             Console.WriteLine("Available input devices:");

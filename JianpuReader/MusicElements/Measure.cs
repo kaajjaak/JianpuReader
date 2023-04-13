@@ -10,15 +10,16 @@ namespace JianpuReader.MusicElements
     public class Measure
     {
         private List<HandedNote> _handedNotes;
-
-        
+        private bool _isCompleted;
 
         public Measure()
         {
             HandedNotes = new List<HandedNote>();
+            IsCompleted = false;
         }
 
         public List<HandedNote> HandedNotes { get => _handedNotes; set => _handedNotes = value; }
+        public bool IsCompleted { get => _isCompleted; set => _isCompleted = value; }
 
         public void AddHandedNote(HandedNote handedNote)
         {
@@ -44,19 +45,22 @@ namespace JianpuReader.MusicElements
             }
 
             List<string> noteStrings = new List<string>();
+            List<string> noteWidthStrings = new List<string>();
 
-            // Create note strings
+            // Create note strings and note width strings
             foreach (HandedNote note in HandedNotes)
             {
-                string noteString = note.JianpuNote;
+                string noteString = note.ToString();
+                string noteWidthString = note.JianpuNote;
                 noteStrings.Add(noteString);
+                noteWidthStrings.Add(noteWidthString);
             }
 
-            // Calculate total note strings length
-            int totalNoteStringsLength = noteStrings.Sum(x => x.Length);
+            // Calculate total note width strings length
+            int totalNoteWidthStringsLength = noteWidthStrings.Sum(x => x.Length);
 
             // Calculate total padding length required to achieve fixed total width
-            int totalPaddingLength = (int)(totalWidth - totalNoteStringsLength);
+            int totalPaddingLength = (int)(totalWidth - totalNoteWidthStringsLength);
 
             // Calculate padding width for each note
             int paddingWidth = totalPaddingLength / _handedNotes.Count;
@@ -74,8 +78,5 @@ namespace JianpuReader.MusicElements
 
             return sb.ToString();
         }
-
-
-
     }
 }

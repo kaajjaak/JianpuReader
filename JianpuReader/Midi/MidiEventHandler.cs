@@ -11,6 +11,13 @@ namespace JianpuReader.Midi
 {
     internal class MidiEventHandler
     {
+        private MidiChecker _midiChecker;
+
+        public MidiEventHandler(MidiChecker? midiChecker)
+        {
+            _midiChecker = midiChecker;
+        }
+
         public void OnEventReceived(object sender, MidiEventReceivedEventArgs e)
         {
             MidiDevice midiDevice = (MidiDevice)sender;
@@ -41,7 +48,8 @@ namespace JianpuReader.Midi
 
         private void NoteOn(MidiDevice midiDevice, NoteOnEvent midiEvent)
         {
-            Console.WriteLine(Util.ConvertToRelativeNoteNumber(midiEvent.NoteNumber, true));
+            /*Console.WriteLine(Util.ConvertToRelativeNoteNumber(midiEvent.NoteNumber, true));*/
+            _midiChecker.NotePlayed(midiEvent);
         }
     }
 }

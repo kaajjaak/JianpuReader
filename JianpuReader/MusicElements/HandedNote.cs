@@ -10,16 +10,16 @@ namespace MyProject.MusicTheory
         public string JianpuNote { get; set; }
         public bool IsRightHand { get; set; }
         public long NoteLength { get; set; }
-        public bool Completed { get; set; }
-        public bool Correct { get; set; }
+        public bool isCompleted { get; set; }
+        public bool isCorrect { get; set; }
 
         public HandedNote(string jianpuNote, bool isRightHand, long noteLength)
         {
             JianpuNote = jianpuNote;
             IsRightHand = isRightHand;
             NoteLength = noteLength;
-            Completed = false;
-            Correct = false;
+            isCompleted = false;
+            isCorrect = false;
         }
 
         public override string ToString()
@@ -29,9 +29,9 @@ namespace MyProject.MusicTheory
 
         private ConsoleColor GetNoteColor()
         {
-            if (Completed)
+            if (isCompleted)
             {
-                return Correct ? ConsoleColor.Green : ConsoleColor.Red;
+                return isCorrect ? ConsoleColor.Green : ConsoleColor.Red;
             }
 
             return ConsoleColor.White;
