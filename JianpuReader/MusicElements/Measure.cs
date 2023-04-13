@@ -34,28 +34,48 @@ namespace JianpuReader.MusicElements
             StringBuilder sb = new StringBuilder();
             sb.Append("|");
 
+            double totalWidth = 30;
+
             if (handedNotes.Count == 0)
             {
-                return sb.Append("|").ToString();
+                sb.Append(' ', (int)totalWidth);
+                sb.Append("|");
+                return sb.ToString();
             }
 
-            double totalWidth = 30;
-            double fixedNoteWidth = totalWidth / handedNotes.Count;
+            List<string> noteStrings = new List<string>();
 
+            // Create note strings
             foreach (HandedNote note in HandedNotes)
             {
                 string noteString = note.JianpuNote;
-                sb.Append(noteString);
+                noteStrings.Add(noteString);
+            }
 
-                // Pad the space after the note to maintain a fixed width for each note
-                int paddingLength = (int)Math.Round(fixedNoteWidth - noteString.Length);
-                sb.Append(' ', paddingLength);
+            // Calculate total note strings length
+            int totalNoteStringsLength = noteStrings.Sum(x => x.Length);
+
+            // Calculate total padding length required to achieve fixed total width
+            int totalPaddingLength = (int)(totalWidth - totalNoteStringsLength);
+
+            // Calculate padding width for each note
+            int paddingWidth = totalPaddingLength / handedNotes.Count;
+            int extraPadding = totalPaddingLength % handedNotes.Count;
+
+            // Append note strings and padding
+            for (int i = 0; i < noteStrings.Count; i++)
+            {
+                sb.Append(noteStrings[i]);
+                int currentPaddingWidth = paddingWidth + (i < extraPadding ? 1 : 0);
+                sb.Append(' ', currentPaddingWidth);
             }
 
             sb.Append("|");
 
             return sb.ToString();
         }
+
+
 
     }
 }

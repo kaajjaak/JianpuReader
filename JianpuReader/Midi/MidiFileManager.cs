@@ -69,11 +69,11 @@ namespace JianpuReader.Midi
 
                 if (Util.isNoteRight(note.NoteNumber))
                 {
-                    rightMeasure.AddHandedNote(new HandedNote(Util.ConvertToRelativeNoteNumber(note.NoteNumber), true, note.Length));
+                    rightMeasure.AddHandedNote(new HandedNote(Util.ConvertToRelativeNoteNumber(note.NoteNumber, true), true, note.Length));
                 }
                 else
                 {
-                    leftMeasure.AddHandedNote(new HandedNote(Util.ConvertToRelativeNoteNumber(note.NoteNumber), false, note.Length));
+                    leftMeasure.AddHandedNote(new HandedNote(Util.ConvertToRelativeNoteNumber(note.NoteNumber, true), false, note.Length));
                 }
             }
 
