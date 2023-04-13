@@ -1,4 +1,5 @@
-﻿using JianpuReader.MusicElements;
+﻿using JianpuReader.Controller;
+using JianpuReader.MusicElements;
 using JianpuReader.NoteConversion;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
@@ -11,24 +12,25 @@ using System.Threading.Tasks;
 
 namespace JianpuReader.Midi
 {
-    public class MidiChecker
+    public static class MidiChecker
     {
-        private Song? _song;
-
-        public Song? Song { get => _song; set => _song = value; }
-
-        public void NotePlayed(NoteOnEvent note)
+        public static void NotePlayed(NoteOnEvent note)
         {
-            if (_song == null)
+            if (DomainController.song == null)
             {
-                throw new NullReferenceException("Please set the Song property before calling NotePlayed.");
+                throw new NullReferenceException("Please set the DomainController song property before calling NotePlayed.");
             }
             if (Util.isNoteRight(note.NoteNumber))
             {
-                Measure measure = _song.RightMeasures.Find(x => !x.IsCompleted);
-                HandedNote handedNote = measure.HandedNotes.Find(x => !x.isCompleted);
+                Measure measure;
+                HandedNote handedNote;
+                measure = DomainController.song.RightMeasures.Find(x => !x.IsCompleted);
+                handedNote = measure.HandedNotes.Find(x => !x.isCompleted);
+                
 
-                if (handedNote != null)
+
+
+                if (handedNote != null && measure != null)
                 {
                     handedNote.isCompleted = true;
                     handedNote.isCorrect = Util.ConvertToRelativeNoteNumber(note.NoteNumber, true) == handedNote.JianpuNote;
@@ -42,13 +44,6 @@ namespace JianpuReader.Midi
                     measure.IsCompleted = true;
                 }
             }
-
-            // Move the cursor position to the beginning of the console
-            Console.SetCursorPosition(0, 0);
-
-            // Write the updated song representation to the console
-            Console.WriteLine(_song.ToString());
-            Console.WriteLine();
         }
 
     }

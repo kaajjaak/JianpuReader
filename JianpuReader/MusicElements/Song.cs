@@ -50,6 +50,11 @@ namespace JianpuReader.MusicElements
             measuresOutput.AppendLine();
             ConsoleManager.SetConsoleWidth(measuresOutput.ToString().Length + 10);
             // Output the result
+            measuresOutput.AppendLine();
+            // get both values from show right hand score and put them in individual variables
+            var (totalScore, totalNotes) = showRightHandScore();
+            measuresOutput.AppendLine($"Right Hand Score: {totalScore}/{totalNotes}");
+            measuresOutput.AppendLine();
             return measuresOutput.ToString();
         }
 
@@ -72,13 +77,18 @@ namespace JianpuReader.MusicElements
             }
             measuresOutput.AppendLine();
             ConsoleManager.SetConsoleWidth(measuresOutput.ToString().Length + 10);
+            var (totalScore, totalNotes) = showRightHandScore();
+            measuresOutput.AppendLine($"Right Hand Score: {totalScore}/{totalNotes}");
+            measuresOutput.AppendLine();
             // Output the result
             return measuresOutput.ToString();       
         }
 
         public Tuple<int, int> showRightHandScore()
         {
-            int totalScore = rightMeasures.C
+            int totalScore = rightMeasures.Select(x => x.HandedNotes.Count(y => y.isCorrect)).Sum();
+            int totalNotes = rightMeasures.Select(x => x.HandedNotes.Count(y => y.isCompleted)).Sum();
+            return new Tuple<int, int>(totalScore, totalNotes);
         }
     }
 }
