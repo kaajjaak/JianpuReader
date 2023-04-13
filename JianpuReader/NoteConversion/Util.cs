@@ -80,10 +80,10 @@ namespace JianpuReader.NoteConversion
             }
             return relativeNote;
         }
-        public static string DetermineHand(int noteNumber)
+        public static Boolean isNoteRight(int noteNumber)
         {
             int threshold = 60; // Middle C
-            return noteNumber >= threshold ? "Right" : "Left";
+            return noteNumber >= threshold;
         }
     }
 
