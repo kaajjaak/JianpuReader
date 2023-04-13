@@ -9,9 +9,7 @@ namespace JianpuReader.Midi
 {
     internal class MidiDeviceManager
     {
-        private InputDevice _inputDevice;
-
-        public InputDevice InputDevice { get => _inputDevice; set => _inputDevice = value; }
+        public InputDevice? InputDevice { get; set; }
 
         public void createInputDevice()
         {

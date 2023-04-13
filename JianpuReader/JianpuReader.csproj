@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Melanchall.DryWetMidi" Version="6.1.4" />
+    <PackageReference Include="Pastel" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>

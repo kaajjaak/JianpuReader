@@ -3,6 +3,7 @@ using System.Linq;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
 using JianpuReader.Midi;
+using Pastel;
 
 internal class Program
 {
