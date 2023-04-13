@@ -9,11 +9,18 @@ namespace JianpuReader.Midi
 {
     internal class MidiDeviceManager
     {
+        private List<InputDevice> _inputDevices;
         public InputDevice? InputDevice { get; set; }
+        public MidiEventHandler EventHandler { get; set; }
 
-        public void createInputDevice()
+        public MidiDeviceManager(MidiEventHandler eventHandler)
         {
-            var inputDevices = InputDevice.GetAll();
+            EventHandler = eventHandler;
+        }
+
+/*        public void createInputDevice()
+        {
+            _inputDevices = InputDevice.GetAll().ToList();
 
             if (inputDevices.Count() == 0)
             {
@@ -36,8 +43,37 @@ namespace JianpuReader.Midi
 
             InputDevice = inputDevices.ElementAt(inputDeviceNumber - 1);
             Console.WriteLine($"Selected input device '{InputDevice.Name}'");
+        }*/
+
+        public List<InputDevice> getAvailableDevices()
+        {
+            _inputDevices = InputDevice.GetAll().ToList();
+
+            if (_inputDevices.Count() == 0)
+            {
+                throw new Exception("No input devices found");
+            }
+
+            return _inputDevices;
         }
 
+        public void addHandlers()
+        {
+            if (InputDevice == null) { 
+                throw new NullReferenceException("Please set the input device before adding handlers");
+            }
+            InputDevice.EventReceived += EventHandler.OnEventReceived;
+            InputDevice.StartEventsListening();
+        }
+
+        public void resetDevice() {
+            if (InputDevice == null)
+            {
+                throw new NullReferenceException("Please set the input device before adding handlers");
+            }
+            InputDevice.EventReceived -= EventHandler.OnEventReceived;
+            InputDevice.StopEventsListening();
+        }
 
     }
 }

@@ -24,6 +24,7 @@ namespace JianpuReader.MusicElements
 
         public List<Measure> RightMeasures { get => rightMeasures; set => rightMeasures = value; }
         public List<Measure> LeftMeasures { get => leftMeasures; set => leftMeasures = value; }
+        public bool isCompleted { get => rightMeasures.Last().IsCompleted /*&& leftMeasures.Last().IsCompleted*/;}
 
         public override string? ToString()
         {
@@ -50,7 +51,34 @@ namespace JianpuReader.MusicElements
             ConsoleManager.SetConsoleWidth(measuresOutput.ToString().Length + 10);
             // Output the result
             return measuresOutput.ToString();
+        }
 
+        public string showFullString()
+        {
+            // Create a single StringBuilder
+            StringBuilder measuresOutput = new StringBuilder();
+            // Save right hand measures in a single line
+            measuresOutput.AppendLine("Right Hand Measures:");
+            foreach (Measure rightHandMeasure in rightMeasures)
+            {
+                measuresOutput.Append(rightHandMeasure);
+            }
+            measuresOutput.AppendLine();
+            // Save left hand measures in a single line
+            measuresOutput.AppendLine("Left Hand Measures:");
+            foreach (Measure leftHandMeasure in leftMeasures)
+            {
+                measuresOutput.Append(leftHandMeasure);
+            }
+            measuresOutput.AppendLine();
+            ConsoleManager.SetConsoleWidth(measuresOutput.ToString().Length + 10);
+            // Output the result
+            return measuresOutput.ToString();       
+        }
+
+        public Tuple<int, int> showRightHandScore()
+        {
+            int totalScore = rightMeasures.C
         }
     }
 }

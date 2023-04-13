@@ -13,15 +13,16 @@ namespace JianpuReader.Midi
 {
     public class MidiChecker
     {
-        private Song _song;
+        private Song? _song;
 
-        public MidiChecker(Song song)
-        {
-            _song = song;
-        }
+        public Song? Song { get => _song; set => _song = value; }
 
         public void NotePlayed(NoteOnEvent note)
         {
+            if (_song == null)
+            {
+                throw new NullReferenceException("Please set the Song property before calling NotePlayed.");
+            }
             if (Util.isNoteRight(note.NoteNumber))
             {
                 Measure measure = _song.RightMeasures.Find(x => !x.IsCompleted);
@@ -47,6 +48,7 @@ namespace JianpuReader.Midi
 
             // Write the updated song representation to the console
             Console.WriteLine(_song.ToString());
+            Console.WriteLine();
         }
 
     }
