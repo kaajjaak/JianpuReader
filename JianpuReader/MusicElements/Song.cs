@@ -11,11 +11,15 @@ namespace JianpuReader.MusicElements
     {
         private List<Measure> rightMeasures = new List<Measure>();
         private List<Measure> leftMeasures = new List<Measure>();
+        private List<Measure> _shownRightMeasures = new List<Measure>();
+        private List<Measure> _shownLeftMeasures = new List<Measure>();
 
         public Song(List<Measure> rightMeasures, List<Measure> leftMeasures)
         {
             this.rightMeasures = rightMeasures;
             this.leftMeasures = leftMeasures;
+            _shownRightMeasures = rightMeasures.ToList();
+            _shownLeftMeasures = leftMeasures.ToList();
         }
 
         public List<Measure> RightMeasures { get => rightMeasures; set => rightMeasures = value; }
@@ -28,7 +32,9 @@ namespace JianpuReader.MusicElements
 
             // Save right hand measures in a single line
             measuresOutput.AppendLine("Right Hand Measures:");
-            foreach (Measure rightHandMeasure in rightMeasures)
+            if (_shownRightMeasures.First().IsCompleted && _shownRightMeasures[1].IsCompleted)
+                _shownRightMeasures.RemoveAt(0);
+            foreach (Measure rightHandMeasure in _shownRightMeasures)
             {
                 measuresOutput.Append(rightHandMeasure);
             }
