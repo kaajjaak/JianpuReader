@@ -20,7 +20,72 @@ namespace JianpuReader.NoteConversion
             return noteNames[noteIndex] + octave.ToString();
         }
 
-        public static string ConvertToRelativeNoteNumber(int keyNumber, bool MinusInFront = false)
+        public static string ConvertToRelativeNoteNumberLeftHand(int keyNumber, bool MinusInFront = false)
+        {
+            int middleC = 60; // middle C is note number 60
+            int noteValue = keyNumber - middleC;
+            int octave = noteValue / 12;
+            int noteNumber = noteValue % 12;
+            if (noteNumber < 0)
+            {
+                noteNumber += 12;
+                octave -= 1;
+            }
+            string relativeNote = "";
+            switch (noteNumber)
+            {
+                case 0:
+                    relativeNote = "5";
+                    break;
+                case 1:
+                    relativeNote = "4#";
+                    break;
+                case 2:
+                    relativeNote = "4";
+                    break;
+                case 3:
+                    relativeNote = "3#";
+                    break;
+                case 4:
+                    relativeNote = "3";
+                    break;
+                case 5:
+                    relativeNote = "2";
+                    break;
+                case 6:
+                    relativeNote = "2#";
+                    break;
+                case 7:
+                    relativeNote = "1";
+                    break;
+                case 8:
+                    relativeNote = "1#";
+                    break;
+                case 9:
+                    relativeNote = octave < -1 ? "2" : "1*";
+                    break;
+                case 10:
+                    relativeNote = octave < -1 ? "2#" : "1*#";
+                    break;
+                case 11:
+                    relativeNote = octave < -1 ? "1" : "1**d";
+                    break;
+            }
+            if (octave > 0)
+            {
+                relativeNote += "+" + new string('+', octave - 1);
+            }
+            else if (octave < -1)
+            {
+                if (MinusInFront)
+                    relativeNote = new string('-', -octave) + relativeNote;
+                else
+                    relativeNote += new string('-', -octave);
+            }
+            return relativeNote;
+        }
+
+        public static string ConvertToRelativeNoteNumberRightHand(int keyNumber, bool MinusInFront = false)
         {
             int middleC = 60; // middle C is note number 60
             int noteValue = keyNumber - middleC;
@@ -83,6 +148,18 @@ namespace JianpuReader.NoteConversion
                     relativeNote += new string('-', -octave);
             }
             return relativeNote;
+        }
+
+        public static string ConvertToRelativeNoteNumber(int keyNumber, bool MinusInFront = false)
+        {
+            if (isNoteRight(keyNumber))
+            {
+                return ConvertToRelativeNoteNumberRightHand(keyNumber, MinusInFront);
+            }
+            else
+            {
+                return ConvertToRelativeNoteNumberLeftHand(keyNumber, MinusInFront);
+            }
         }
         public static Boolean isNoteRight(int noteNumber)
         {

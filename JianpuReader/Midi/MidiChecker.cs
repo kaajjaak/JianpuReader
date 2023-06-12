@@ -78,6 +78,7 @@ namespace JianpuReader.Midi
                 {
                     handedNote.isCompleted = true;
                     handedNote.isCorrect = Util.ConvertToRelativeNoteNumber(note.NoteNumber, false) == handedNote.JianpuNote;
+                    Console.WriteLine(Util.ConvertToRelativeNoteNumber(note.NoteNumber, false));
                     if (measure.HandedNotes.Find(x => !x.isCompleted) == null && correspondingRightMeasure.HandedNotes.Find(x => !x.isCompleted) == null)
                     {
                         measure.IsCompleted = true;

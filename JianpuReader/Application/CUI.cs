@@ -135,9 +135,6 @@ namespace JianpuReader.Application
         {
             if (e.Event.EventType == MidiEventType.NoteOn && ((NoteOnEvent)e.Event).Velocity > 0)
             {
-                Console.Clear();
-                Console.WriteLine(Util.ConvertToRelativeNoteNumber(((NoteOnEvent)e.Event).NoteNumber));
-                return;
                 if (DomainController.song == null)
                 {
                     Console.Clear();
