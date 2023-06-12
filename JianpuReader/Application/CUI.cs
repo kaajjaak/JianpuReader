@@ -128,6 +128,10 @@ namespace JianpuReader.Application
             Console.WriteLine("Press 'R' to restart or any other key to exit");
 
             ConsoleKeyInfo keyInfo = Console.ReadKey();
+            if (keyInfo.Key == ConsoleKey.R)
+            {
+                _dc.resetSong();
+            }
             return keyInfo.Key == ConsoleKey.R;
         }
 

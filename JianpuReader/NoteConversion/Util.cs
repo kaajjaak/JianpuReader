@@ -68,7 +68,7 @@ namespace JianpuReader.NoteConversion
                     relativeNote = octave < -1 ? "2#" : "1*#";
                     break;
                 case 11:
-                    relativeNote = octave < -1 ? "1" : "1**d";
+                    relativeNote = octave < -1 ? "1" : "1**";
                     break;
             }
             if (octave > 0)
